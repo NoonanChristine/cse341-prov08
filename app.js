@@ -1,14 +1,30 @@
 const path = require('path');
 const PORT = process.env.PORT || 3000;
+const MONGODB_URL = process.env.MONGODB_URL || 'mongodb+srv://noo19002:database12@cluster0.jvt7v.mongodb.net/shop?retryWrites=true&w=majority'
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
+const options = {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    family: 4
+};
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const app = express();
+
+const corsOptions = {
+    origin: "https://<your_app_name>.herokuapp.com/",
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -34,7 +50,9 @@ app.use(shopRoutes);
 app.use(errorController.get404);
 
 mongoose
-    .connect('mongodb+srv://noo19002:database12@cluster0.jvt7v.mongodb.net/shop?retryWrites=true&w=majority')
+    .connect(
+        MONGODB_URL, options
+    )
     .then(result => {
         User.findOne().then(user => {
             if (!user) {
