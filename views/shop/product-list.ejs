@@ -1,27 +1,17 @@
-<% include ../includes/head.ejs %>
-<title><%= title %></title>
-<!-- <link href="/stylesheets/ta03.css" rel="stylesheet" type="text/css" /> -->
+
+<title><%= pageTitle %></title>
 
 </head>
 
 <body>
-<% include ../includes/navigation.ejs %>
 <div class="container">
-  <!-- <form action="/proveAssignments/08" method="POST" class="form-inline">
-    <input type="text" name="searchValue" placeholder="Search by Title" class="form-control" style="width:300px">
-    <button type="submit" class="btn btn-primary">Search</button>
-    <% if (searchedValue.length > 0) { %>
-    <a type="button" href="/proveAssignments/08" class="btn btn-default">Clear Search Results</a>
-    <h3>Showing search results for: <%= searchedValue %></h3>
-    <% } %>
-  </form> -->
   <h1>JSON Results</h1>
     <% for(var i=0; i<data.length; i++) {%>
       <% if(i % 3 == 0) { %>
         <div class="container">
       <% } %>
         <div class="card">
-          <img src="<%= data[i].imageUrl %>" alt="t" class="cardImg">
+          <img src="<%= data[i].imageUrl %>" alt="t" class="cardImg" style="width:25%;">
           <div class="cardContainer">
             <h4><b><%= data[i].name %></b></h4>
             <h6><%= data[i].price %></h6>
